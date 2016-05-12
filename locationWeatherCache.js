@@ -1,4 +1,5 @@
 
+
 // Returns a date in the format "YYYY-MM-DD".
 Date.prototype.simpleDateString = function() {
     function pad(value)
@@ -22,6 +23,7 @@ Date.prototype.forecastDateString = function() {
 
 
 // Code for LocationWeatherCache class and other shared code.
+
 
 // Prefix to use for Local Storage.  You may change this.
 var APP_PREFIX = "weatherApp";
@@ -50,8 +52,9 @@ function LocationWeatherCache()
     // new location into the cache.  It will have an empty 'forecasts'
     // property.  Returns the index of the added location.
     //
-    this.addLocation = function(latitude, longitude, nickname)
+    this.addLocation = function(lat, lng, nickname)
     {
+        localStorage.setItem(APP_PREFIX, nickname + "\n" + lat + "\n" + lng);
     }
 
     // Removes the saved location at the given index.
@@ -65,6 +68,7 @@ function LocationWeatherCache()
     // are active web service requests and so doesn't need to be saved.
     //
     this.toJSON = function() {
+        
     };
 
     // Given a public-data-only version of the class (such as from
@@ -119,4 +123,3 @@ function loadLocations()
 function saveLocations()
 {
 }
-
