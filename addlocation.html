@@ -2,7 +2,7 @@
 <html>
 
     <head>
-        <script src="http://maps.googleapis.com/maps/api/js"></script>
+        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyByF5gf8EgH8LG35fy8TJACsfOW9Zd88ZY"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <title>Weather</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,7 +32,8 @@
             <div class="content-grid mdl-grid">
               <div class="mdl-cell">
                 <!--   Main page content here:   -->     
-                  <input id="address" type="text" class="inputs" onkeyup="addLocation()" placeholder="Address"/>              
+                 
+                  <input id="address" type="text" class="inputs" onkeyup="geoLocate()" placeholder="Address"/>         
                   <input id="nickname" type="text" class="inputs" placeholder="Nickname" size="10"/>                
                   <div id="googleMap" style="width:328px;height:345px;"></div>
                   <button id="locate" class="button" type="button" onClick="addLocation(); location.href = 'index.html'" >Add location</button>
