@@ -31,21 +31,11 @@
           <main class="mdl-layout__content">
             <div class="content-grid mdl-grid">
               <div class="mdl-cell">
-                <!--   Main page content here:   -->  
-                   <label>Address: </label>
-                  
-                  <input id="address" type="text" onkeyup="addLocation()" size="10"/>
-                  
-                 <label>Nickname: </label>
-                  
-                  <input id="nickname" type="text"  size="10"/>
-                  
-                  <button id="locate" type="button" onClick="addLocation()">Add location</button>
-                  
-                   <button id="test" type="button" onClick="test()">test</button>
-                  
-                  <div id="googleMap" style="width:500px;height:380px;"></div>
-                  
+                <!--   Main page content here:   -->     
+                  <input id="address" type="text" class="inputs" onkeyup="addLocation()" placeholder="Address"/>              
+                  <input id="nickname" type="text" class="inputs" placeholder="Nickname" size="10"/>                
+                  <div id="googleMap" style="width:328px;height:345px;"></div>
+                  <button id="locate" class="button" type="button" onClick="addLocation(); location.href = 'index.html'" >Add location</button>
               </div>
             </div>
           </main>    
