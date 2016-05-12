@@ -33,10 +33,10 @@
               <div class="mdl-cell">
                 <!--   Main page content here:   -->     
                  
-                  <input id="address" type="text" class="inputs" onkeyup="geoLocate()" placeholder="Address"/>         
-                  <input id="nickname" type="text" class="inputs" placeholder="Nickname" size="10"/>                
+                  <input id="address" type="text" class="inputs" onkeyup="setTimeout(geoLocate,450)" placeholder="Address"/>         
+                  <input id="nickname" type="text" class="inputs" onkeyup="setTimeout(geoLocate,450)" placeholder="Nickname" size="10"/>                
                   <div id="googleMap" style="width:328px;height:345px;"></div>
-                  <button id="locate" class="button" type="button" onClick="addLocation(); location.href = 'index.html'" >Add location</button>
+                  <button id="locate" class="button" type="button" onClick="geoLocate(); location.href = 'index.html'" >Add location</button>
               </div>
             </div>
           </main>    
