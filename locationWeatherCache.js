@@ -1,5 +1,4 @@
 
-
 // Returns a date in the format "YYYY-MM-DD".
 Date.prototype.simpleDateString = function() {
     function pad(value)
@@ -24,7 +23,6 @@ Date.prototype.forecastDateString = function() {
 
 // Code for LocationWeatherCache class and other shared code.
 
-
 // Prefix to use for Local Storage.  You may change this.
 var APP_PREFIX = "weatherApp";
 
@@ -39,28 +37,42 @@ function LocationWeatherCache()
     
     // Returns the number of locations stored in the cache.
     //
-    this.length = function() {
+    this.length = function(cache) {
+        
+        console.log(cache.length)
+        
     };
     
     // Returns the location object for a given index.
     // Indexes begin at zero.
     //
     this.locationAtIndex = function(index) {
+       
+        console.log(locations[index])
     };
 
     // Given a latitude, longitude and nickname, this method saves a 
     // new location into the cache.  It will have an empty 'forecasts'
     // property.  Returns the index of the added location.
     //
-    this.addLocation = function(lat, lng, nickname)
+    this.addLocation = function(latitude, longitude, nickname)
     {
-        localStorage.setItem(APP_PREFIX, nickname + "\n" + lat + "\n" + lng);
+        var locations = {
+             latitude:latitude,
+             longitude:longitude,
+             nickname:nickname   
+    };
+         locations.push({latitude, longitude, nickname});  [{latitude, longitude, nickname},{latitude, longitude, nickname},] 
+         console.log(locations.length-1)
     }
 
     // Removes the saved location at the given index.
     // 
     this.removeLocationAtIndex = function(index)
     {
+        localStorage.removeItem(i);
+        updatalocationlist();  
+        
     }
 
     // This method is used by JSON.stringify() to serialise this class.
@@ -68,7 +80,6 @@ function LocationWeatherCache()
     // are active web service requests and so doesn't need to be saved.
     //
     this.toJSON = function() {
-        
     };
 
     // Given a public-data-only version of the class (such as from
@@ -98,6 +109,26 @@ function LocationWeatherCache()
     // weather request.
     //
     this.weatherResponse = function(response) {
+          document.getElementById("weather").innerHTML="'<h2>Current Weather</h2>'"
+    addicon(result.currently.icon,"weather");
+ var summary=result.currently.summary;
+ var temperature=result.currently.temperature+" ℃";
+ var humidity=result.currently.humidity*100+"%";
+ var windSpeed=(result.currently.windSpeed)*3.6+" km/h";
+ document.getElementById("weather").innerHTML+='<span class="tittle">Current Weather condition:</span>'+summary+"<br>"+'<span class="tittle">Current temperature:</span>'+temperature+"<br>" +'<span class="tittle">Current humidity:</span>'+humidity+"<br>" +'<span class="tittle">Windspeed:</span>'+windSpeed+"<br>" 
+  
+ currentUNIXtime=result.hourly.data[0].time; // find hour with nearest hour  
+ findtime(currentUNIXtime);
+
+// document.getElementById("next7day").innerHTML="";    
+ for (var i=1;i<=7;i++)  {
+     document.getElementById("day"+i).innerHTML="";  
+    var myDate = new Date( result.daily.data[i].time*1000); // change unix time to real time
+    var dayy=myDate.getDay();  
+    document.getElementById("day"+i).innerHTML+='<span class="day">Day:</span>'+day[dayy]+"<br>";
+    document.getElementById("day"+i).innerHTML+='<span class="tittle">Minimum Temperature:</span>'+result.daily.data[i].temperatureMin+"℃"+"<br>";
+    document.getElementById("day"+i).innerHTML+='<span class="tittle">Maximum Temperature:</span>'+result.daily.data[i].temperatureMax+"℃"+"<br>";
+    addicon(result.daily.data[i].icon,"day"+i);
     };
 
     // Private methods:
@@ -107,6 +138,7 @@ function LocationWeatherCache()
     // matching latitude and longitude if one exists, otherwise it
     // returns -1.
     //
+    
     function indexForLocation(latitude, longitude)
     {
     }
@@ -116,6 +148,11 @@ function LocationWeatherCache()
 //
 function loadLocations()
 {
+    longitude =  JSON.parse(localStorage.getItem(i)).long;
+latitude  =  JSON.parse(localStorage.getItem(i)).lat;
+initMap();
+x.innerHTML="";
+findweather();
 }
 
 // Save the singleton locationWeatherCache to Local Storage.
@@ -123,3 +160,72 @@ function loadLocations()
 function saveLocations()
 {
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+'use strict';
+
+var forecastioWeather = ['$q', '$resource', '$http', 'FORECASTIO_KEY', 
+  function($q, $resource, $http, FORECASTIO_KEY) {
+  var url = 'https://api.forecast.io/forecast/' + FORECASTIO_KEY + '/';
+
+  var weatherResource = $resource(url, {
+    callback: 'JSON_CALLBACK',
+  }, {
+    get: {
+      method: 'JSONP'
+    }
+  });
+
+  return {
+    //getAtLocation: function(lat, lng) {
+    getCurrentWeather: function(lat, lng) {
+      return $http.jsonp(url + lat + ',' + lng + '?callback=JSON_CALLBACK');
+    }
+  }
+}];
+
+angular.module('starter.services', ['ngResource'])
+.factory('Cities', function() {
+var cities = [
+    { id: 0, name: 'Miami', lat:25.7877 , lgn: 80.2241 },
+    { id: 1, name: 'New York City' ,lat: 40.7127 , lgn: 74.0059 },
+    { id: 2, name: 'London' ,lat:51.5072 , lgn: 1.1275 },
+    { id: 3, name: 'Los Angeles' ,lat: 34.0500 , lgn: 118.2500 },
+    { id: 4, name: 'Dallas' ,lat: 32.7758 , lgn:96.7967  },
+    { id: 5, name: 'Frankfurt' ,lat:50.1117 , lgn: 8.6858 },
+    { id: 6, name: 'New Delhi' ,lat:28.6100 , lgn: 77.2300 }
+  ];
+
+  return {
+    all: function() {
+      return cities;
+    },
+    get: function(cityId) {
+      // Simple index lookup
+      return cities[cityId];
+    }
+  }
+}).
+factory('DataStore', function() {
+    //create datastore with default values
+    var DataStore = {
+        city:       'Miami',
+        latitude:   25.7877,
+        longitude:  80.2241 };
+
+    DataStore.setCity = function (value) {
+       DataStore.city = value;
+    };
+
+    DataStore.setLatitude = function (value) {
+       DataStore.longitude = value;
+    };
+
+    DataStore.setLongitude = function (value) {
+       DataStore.longitude = value;
+    };
+
+    return DataStore;
+})
+.factory('Weather', forecastioWeather);
