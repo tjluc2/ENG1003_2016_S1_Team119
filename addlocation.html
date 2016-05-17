@@ -1,9 +1,6 @@
 <!doctype html>
 <html>
-
     <head>
-        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyByF5gf8EgH8LG35fy8TJACsfOW9Zd88ZY"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <title>Weather</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
@@ -15,9 +12,8 @@
         <meta name="mobile-web-app-capable" content="yes" />
         <link rel="shortcut icon" sizes="196x196" href="images/icon.png" />
         <link rel="apple-touch-icon-precomposed" href="images/icon.png" />
-        
     </head>
-    <!--   JavaScript files:   -->
+    
     <body>
         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
           <header class="mdl-layout__header">
@@ -31,12 +27,38 @@
           <main class="mdl-layout__content">
             <div class="content-grid mdl-grid">
               <div class="mdl-cell">
-                <!--   Main page content here:   -->     
-                 
-                  <input id="address" type="text" class="inputs" onkeyup="setTimeout(geoLocate,450)" placeholder="Address"/>         
-                  <input id="nickname" type="text" class="inputs" onkeyup="setTimeout(geoLocate,450)" placeholder="Nickname" size="10"/>                
-                  <div id="googleMap" style="width:328px;height:345px;"></div>
-                  <button id="locate" class="button" type="button" onClick="geoLocate(); location.href = 'index.html'" >Add location</button>
+                <!--   Main page content here:   -->  
+                  <label>location Name </label>
+                  <input id="address" type="text" onkeyup="addLocation()" size="10"/>
+                  <label>Nickname: </label>
+                  <input id="nickname" type="text"  size="10"/>
+                  <button id="locate" type="button" onClick="addLocation()">Add location</button>
+                  <!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      #map {
+        width: 500px;
+        height: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var mapDiv = document.getElementById('map');
+        var map = new google.maps.Map(mapDiv, {
+          center: {lat: 44.540, lng: -78.546},
+          zoom: 8
+        });
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
+        async defer></script>
+  </body>
+</html>
+         <iframe name="sinaWeatherTool"   src="https://api.forecast.io/forecast/APIKEY/-37.912556,145135814" width="200" height="20" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" scrolling="no"></iframe>                       
               </div>
             </div>
           </main>    

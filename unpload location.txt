@@ -5,3 +5,23 @@ for(var i=0;i<=x;i++){
                                                           
  document.getElementById("localview").innerHTML+='<a class="mdl-navigation__link" onClick="updatalocation('+i+')">'+JSON.parse(localStorage.getItem(i)).nickname+'</a>';
  document.getElementById("localview").innerHTML+='<button class="delete" onclick="clearlocations('+i+')">'+"Delete location:.."+JSON.parse(localStorage.getItem(i)).nickname+'<i class="material-icons">delete</i></button>'     
+
+
+
+function addlocation(){
+   
+if (JSON.parse(localStorage.getItem("numberoflocation"))!==null){x=JSON.parse(localStorage.getItem("numberoflocation"))} else{x=0;}    
+  
+Nickname= document.getElementById("nickname").value;
+var localobj=new locationlist(Nickname,latitude,longitude);
+
+localStorage.setItem(x,JSON.stringify(localobj));
+    x=x+1;
+localStorage.setItem("numberoflocation",x); 
+
+alert("location is added")    
+
+
+
+
+}
