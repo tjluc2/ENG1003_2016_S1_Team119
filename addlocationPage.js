@@ -1,6 +1,6 @@
 var map;
 var formattedAddress;
-
+var tempResults;
 
 function initialize() {
   var mapProp = {
@@ -15,12 +15,11 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 function geoLocate() {
             var geocoder = new google.maps.Geocoder();    // instantiate a geocoder object
-			
-			// Get the user's inputted address
-			var address = document.getElementById( "address" ).value;
+    
+			var address = document.getElementById( "address" ).value; // Get the user's inputted address
 		  
 			// Make asynchronous call to Google geocoding API
-    geocoder.geocode( { 'address': address }, function(results, status) {
+            geocoder.geocode( { 'address': address }, function(results, status) {
 				// type of address inputted that was geocoded
                 // formattedAddress = results[0].formatted_address
         if ( status == google.maps.GeocoderStatus.OK){       
@@ -36,7 +35,7 @@ function geoLocate() {
                     map: map,  
                     title: address
                 });
-		
+		       tempResults = results
 		      // Create an InfoWindow for the marker
                 if (nickname.length > 0) {
                     var contentString = "<b>" + nickname + "</b>";	// HTML text to display in the InfoWindo
@@ -44,11 +43,6 @@ function geoLocate() {
                     var contentString = "<b>" + formattedAddress + "</b>";	// HTML text to display in the InfoWindow
                 }
                 var infowindow = new google.maps.InfoWindow( { content: contentString } );
-                var lat =results[0].geometry.location.lat();
-                var lng = results[0].geometry.location.lng()
-                    var locationCacheInstance = new LocationWeatherCache();
-                locationCacheInstance.addLocation(lat, lng, nickname);
-            
 		
                 // Set event to display the InfoWindow anchored to the marker when the marker is clicked.
                 google.maps.event.addListener( marker, 'click', function() { infowindow.open( map, marker ); });
@@ -72,3 +66,17 @@ function geoLocate() {
 			});
 	
 		} ;
+
+function addToCache() {
+    var lat = tempResults[0].geometry.location.lat();
+    var lng = tempResults[0].geometry.location.lng();
+    var nickname = document.getElementById("nickname").value;
+    var formattedAddress = tempResults[0].formatted_address
+    if (nickname == "") {
+        nickname = formattedAddress;
+    }
+    var locationCacheInstance = new LocationWeatherCache();
+    locationCacheInstance.addLocation(lat, lng, nickname);
+    
+    
+}
