@@ -58,8 +58,17 @@ function LocationWeatherCache()
     this.addLocation = function(lat, lng, nickname)
     {
         var forecasts = ""
-        var tempLocation = [nickname, lat, lng, forecasts]
-        locationCacheInstance.toJSON(tempLocation)
+        
+        callbacks = {
+            nickname: nickname,
+            latitude: lat,
+            longitude: lng,
+            forecasts: forecasts
+        };
+        index = nickname
+        console.log(index)
+        locationCacheInstance.toJSON(callbacks)
+        return index
     }
 
     // Removes the saved location at the given index.
@@ -72,11 +81,13 @@ function LocationWeatherCache()
     // Note that the callbacks attribute is only meaningful while there 
     // are active web service requests and so doesn't need to be saved.
     //
-    this.toJSON = function(tempLocation) 
+    this.toJSON = function(callbacks) 
     {
-        locations.push(tempLocation)
-        localStorage.setItem(APP_PREFIX, JSON.stringify(locations));
-        console.log(locations);
+        var list = JSON.parse(localStorage.getItem(APP_PREFIX)) || []
+        locations.push(callbacks)
+        locations.push(list)
+        
+        saveLocations(locations)
     };
 
     // Given a public-data-only version of the class (such as from
@@ -128,7 +139,9 @@ function loadLocations()
 
 // Save the singleton locationWeatherCache to Local Storage.
 //
-function saveLocations()
+function saveLocations(locations)
 {
+    localStorage.setItem(APP_PREFIX, JSON.stringify(locations));
+    
 }
 
