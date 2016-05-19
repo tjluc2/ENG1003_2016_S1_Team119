@@ -3,25 +3,32 @@
 // This is sample code to demonstrate navigation.
 // You need not use it for final app.
 
-function viewLocation()
+//var tempLocation = JSON.parse(localStorage.getItem(APP_PREFIX))
+//var locationName = tempLocation[0]
+//localStorage.setItem(APP_PREFIX + "-selectedLocation", JSON.stringify(locationName));
+    
+
+function viewLocation(index)
 {
-    var tempLocationAsObject = JSON.parse(localStorage.getItem(APP_PREFIX))
-    var locationName = tempLocationAsObject[0]
-    console.log(locationName)
+    //Turns location back into object
+    console.log(index);
+   
     
-    // Save the desired location to local storage
-    localStorage.setItem(APP_PREFIX + "-selectedLocation", locationName);
+    //localStorage.setItem(APP_PREFIX + "-selectedLocation", JSON.stringify(nickname));
     
+    //var div = document.getElementById('locationA');
+    //ul = document.createElement('ul');
     
-    var locationA = document.getElementById('locationA');
-    locationA.innerHTML = locationName;                         //Changes 'location A' to name of the location
+    //for (var i in locations) 
+        //var li = document.createElement('li'),
+        //content = document.createTextNode(locations.nickname);
+        //li.appendChild(content);
+        //ul.appendChild(li);
     
-    var locationB = document.getElementById('locationB');
-    locationB.innerHTML = locationName;         
-    
-    
+    //div.appendChild(ul);
 
    
     // And load the view location page.
     // location.href = 'viewlocation.html';
 }
+
