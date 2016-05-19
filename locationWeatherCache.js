@@ -57,7 +57,6 @@ function LocationWeatherCache()
     //
     this.addLocation = function(lat, lng, nickname)
     {
-        localStorage.clear()
         var forecasts = ""
         callbacks = {
             nickname: nickname,
