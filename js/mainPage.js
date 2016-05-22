@@ -26,14 +26,14 @@ function viewLocation(clicked_id)
  function weatherForecastSummary(){//adds summary to the main page
       
   return $.ajax({
-  url: "https://api.forecast.io/forecast/cc76775d3f3464a6c4a3f856e0b11b05/" + temp[i].latitude + "," + temp[i].longitude,
+  url: "https://api.forecast.io/forecast/cc76775d3f3464a6c4a3f856e0b11b05/" + temp[i].latitude + "," + temp[i].longitude + '?units=si',
   jsonp: "callback",
   dataType: "jsonp",
   success: function(data, temp ) {
-      output = data.currently.summary
-  summary = data.currently.summary + " - " ;
-      console.log(output)
-console.log("success")
+      
+   temperature = Math.round(data.currently.temperature)  + "\u00B0" + "C"
+  summary = data.currently.summary + " " + temperature ;
+console.log(temperature)
 updateSummary(temp)
       return summary
   }
