@@ -1,7 +1,11 @@
 <!doctype html>
 <html>
     <head>
+<<<<<<< HEAD
          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByF5gf8EgH8LG35fy8TJACsfOW9Zd88ZY"></script>
+=======
+        <script src="http://maps.googleapis.com/maps/api/js"></script>
+>>>>>>> origin/master
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <title>Weather</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,6 +37,7 @@
             <div class="content-grid mdl-grid">
               <div class="mdl-cell">
                 <!--   Main page content here:   -->  
+<<<<<<< HEAD
                 <div id="googleMap" style="width:328px;height:345px;"></div>
                 <body onload="initialize()"></body>
                       <p>
@@ -47,6 +52,13 @@
                 <div id="slider"></div>
 <button id="removeLocation" class="button" type="button" onClick="removeLocation(); location.href = 'index.html'">REMOVE BUTTON</button>
                     <button id="weatherButton" class="button" type="button" onClick="weatherForecastSlider()">WEATHER BUTTON</button>
+=======
+                <div id="googleMap" style="width:500px;height:380px;"></div>
+                <body onload="initialize()"></body>
+                  
+                <article style="padding:50px 20px">
+                <div id="slider"></div>
+>>>>>>> origin/master
                 </article>
                 
                
@@ -58,6 +70,7 @@
         <script src="js/locationWeatherCache.js"></script>
         
         <script src="js/viewLocationPage.js"></script>
+<<<<<<< HEAD
         <script src="js/jquery.js"></script>
         <script src="js/jquery-ui.js"></script>
         <script src="js/jquery.ui.touch-punch.min.js"></script>
@@ -89,5 +102,8 @@ sliderDate = (new Date($( "#slider-range" ).slider( "values", 0 )*1000)).simpleD
   });
 </script> 
         
+=======
+        <script src="js/nouislider.js"></script>
+>>>>>>> origin/master
     </body>
 </html>

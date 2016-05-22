@@ -6,7 +6,29 @@
 //var tempLocation = JSON.parse(localStorage.getItem(APP_PREFIX))
 //var locationName = tempLocation[0]
 //localStorage.setItem(APP_PREFIX + "-selectedLocation", JSON.stringify(locationName));
+<<<<<<< HEAD
+=======
     
+
+function viewLocation(index)
+{
+    //Turns location back into object
+    console.log(index);
+   
+    
+    //localStorage.setItem(APP_PREFIX + "-selectedLocation", JSON.stringify(nickname));
+    
+    //var div = document.getElementById('locationA');
+    //ul = document.createElement('ul');
+    
+    //for (var i in locations) 
+        //var li = document.createElement('li'),
+        //content = document.createTextNode(locations.nickname);
+        //li.appendChild(content);
+        //ul.appendChild(li);
+>>>>>>> origin/master
+    
+    //div.appendChild(ul);
 
 function viewLocation(clicked_id)
 {
@@ -22,6 +44,7 @@ function viewLocation(clicked_id)
      location.href = 'viewlocation.html';
 }
 
+<<<<<<< HEAD
 
  function weatherForecastSummary(){//adds summary to the main page
       var testHTML = document.createElement("li")  
@@ -47,3 +70,5 @@ function test(){
 
     document.getElementById('locationList').appendChild(testHTML);
 }
+=======
+>>>>>>> origin/master
