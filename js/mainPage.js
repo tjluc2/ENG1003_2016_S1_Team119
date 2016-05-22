@@ -43,8 +43,25 @@ updateSummary(temp)
  }
 t=0
 function updateSummary(){
-     
+listHTML = document.createElement("li")     
 document.getElementById(t).innerHTML = '<li id =' + t + ' ' + 'class="mdl-list__item mdl-list__item--two-line" onclick="viewLocation(this.id, temp);"><span class="mdl-list__item-primary-content"><img class="mdl-list__item-icon" id="icon0" src="images/loading.png"> <span>' + temp[t].nickname + '</span> <span id="weather0" class="mdl-list__item-sub-title">' + summary + '</span> </span></li>';
-      document.getElementById('locationList').appendChild(testHTML);
+      document.getElementById('locationList').appendChild(listHTML);
     t++
+}
+
+function geoFindMe() {
+  function success(position) {
+    var latitude  = position.coords.latitude;
+    var longitude = position.coords.longitude;
+      var latlng = {lat:latitude, lng: longitude}
+      var geocoder = new google.maps.Geocoder();
+       geocoder.geocode({'location': latlng}, function(results, status) {
+     currentLocation = results[1].formatted_address;
+           console.log(currentLocation)
+     var listHTML = document.createElement("li")
+        document.getElementById("currentLocation").innerHTML = '  <li id= currentLocation class="mdl-list__item mdl-list__item--two-line" onclick="viewLocation(temp, i);"><span class="mdl-list__item-primary-content"><img class="mdl-list__item-icon" id="icon0" src="images/loading.png"> <span>' + currentLocation + '</span> <span id="weather0" class="mdl-list__item-sub-title">This is your current location!</span> </span></li>';
+    document.getElementById('locationList').appendChild(listHTML);
+      });
+  };
+  navigator.geolocation.getCurrentPosition(success);
 }

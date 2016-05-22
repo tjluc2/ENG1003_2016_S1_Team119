@@ -6,6 +6,7 @@ var map
 var selectedLocation = JSON.parse(localStorage.getItem(APP_PREFIX + "-selectedLocation"))
 function initialize() {
     console.log(selectedLocation);
+
                 
   var mapProp = {
     center:new google.maps.LatLng(selectedLocation.latitude,selectedLocation.longitude),
