@@ -123,11 +123,7 @@ function LocationWeatherCache()
           
        }
         locations.push(callbacks)
-<<<<<<< HEAD
         //locations.push(temp2)
-=======
-        locations.push(list)
->>>>>>> origin/master
         saveLocations(locations, index)
     };
 
