@@ -58,16 +58,14 @@ function LocationWeatherCache()
     this.addLocation = function(lat, lng, nickname)
     {
         var forecasts = ""
-        
         callbacks = {
             nickname: nickname,
             latitude: lat,
             longitude: lng,
             forecasts: forecasts
         };
-        index = nickname
-        console.log(index)
-        locationCacheInstance.toJSON(callbacks)
+        var index = nickname
+        locationCacheInstance.toJSON(callbacks, index)
         return index
     }
 
@@ -75,19 +73,58 @@ function LocationWeatherCache()
     // 
     this.removeLocationAtIndex = function(index)
     {
-    }
+       console.log(selectedLocation) //works 2nd time round
+           //if we do a for loop from the beggining, then we could create a callback structure thing for each time instead of an array, then push 2 callbacks into locations
+        var list = JSON.parse(localStorage.getItem(APP_PREFIX)) || []
+       i = 0
+       while(i + 1 <= list.length){
+       temp = {
+            nickname: list[i].nickname,
+            latitude: list[i].latitude,
+            longitude: list[i].longitude,
+            forecasts: list[i].forecasts
+        };
+           i++
+        if (temp.longitude === selectedLocation.longitude && temp.latitude === selectedLocation.latitude ){
+            console.log("not adding it")
+        }
+           else{
+        locations.push(temp)          
+           }
+       }
+       
+        //locations.push(temp2)
+        saveLocations(locations, index)
+        alert(selectedLocation.nickname + " has been removed from storage!");
+    }; 
+    
+    
 
     // This method is used by JSON.stringify() to serialise this class.
     // Note that the callbacks attribute is only meaningful while there 
     // are active web service requests and so doesn't need to be saved.
     //
-    this.toJSON = function(callbacks) 
+    this.toJSON = function(callbacks, index) 
     {
+       //if we do a for loop from the beggining, then we could create a callback structure thing for each time instead of an array, then push 2 callbacks into locations
         var list = JSON.parse(localStorage.getItem(APP_PREFIX)) || []
+       console.log(list.length) //works 2nd time round
+       i = 0
+       while(i + 1 <= list.length){
+       temp = {
+            nickname: list[i].nickname,
+            latitude: list[i].latitude,
+            longitude: list[i].longitude,
+            forecasts: list[i].forecasts
+        };
+           i++
+       
+        locations.push(temp)          
+          
+       }
         locations.push(callbacks)
-        locations.push(list)
-        
-        saveLocations(locations)
+        //locations.push(temp2)
+        saveLocations(locations, index)
     };
 
     // Given a public-data-only version of the class (such as from
@@ -139,9 +176,14 @@ function loadLocations()
 
 // Save the singleton locationWeatherCache to Local Storage.
 //
-function saveLocations(locations)
+function saveLocations(locations, index)
 {
     localStorage.setItem(APP_PREFIX, JSON.stringify(locations));
     
+    
 }
 
+function lukeDate(){
+  var dat = sliderDate.simpleDateString() + "T12:00:00";
+console.log(dat)
+}
