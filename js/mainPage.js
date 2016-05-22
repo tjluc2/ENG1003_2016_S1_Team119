@@ -24,26 +24,27 @@ function viewLocation(clicked_id)
 
 
  function weatherForecastSummary(){//adds summary to the main page
-      var testHTML = document.createElement("li")  
-  $.ajax({
+      
+  return $.ajax({
   url: "https://api.forecast.io/forecast/cc76775d3f3464a6c4a3f856e0b11b05/" + temp[i].latitude + "," + temp[i].longitude,
   jsonp: "callback",
   dataType: "jsonp",
-  success: function(data, temp) {
+  success: function(data, temp ) {
       output = data.currently.summary
-      console.log(i)  
-  document.getElementById("temp").value += data.currently.summary + " - " ;
-      test(i)
-  }      
+  summary = data.currently.summary + " - " ;
+      console.log(output)
+console.log("success")
+updateSummary(temp)
+      return summary
+  }
+      
 });
-
-     
+  
  }
-
-
-function test(){
-   
-        testHTML.innerHTML += '   <li id =' + i + ' ' + 'class="mdl-list__item mdl-list__item--two-line" onclick="viewLocation(this.id, temp);"><span class="mdl-list__item-primary-content"><img class="mdl-list__item-icon" id="icon0" src="images/loading.png"> <span>' + 'temp[i].nickname' + '</span> <span id="weather0" class="mdl-list__item-sub-title">' + summary + '</span> </span></li>';
-
-    document.getElementById('locationList').appendChild(testHTML);
+t=0
+function updateSummary(){
+     
+document.getElementById(t).innerHTML = '<li id =' + t + ' ' + 'class="mdl-list__item mdl-list__item--two-line" onclick="viewLocation(this.id, temp);"><span class="mdl-list__item-primary-content"><img class="mdl-list__item-icon" id="icon0" src="images/loading.png"> <span>' + temp[t].nickname + '</span> <span id="weather0" class="mdl-list__item-sub-title">' + summary + '</span> </span></li>';
+      document.getElementById('locationList').appendChild(testHTML);
+    t++
 }

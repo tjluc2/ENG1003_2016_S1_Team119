@@ -40,6 +40,7 @@
             </ul>
             <!--   End sample locations list.   -->  
 <input type="text" id="temp" style="border: 0; color: #3F47B0; font-weight: bold;" size="100"/>
+              <button id="locate" class="button" type="button" onClick="hope()">Add location</button>
           </main>
         </div>
         <!--   JavaScript files:   -->
@@ -53,22 +54,14 @@
        var testHTML = document.createElement("li")
 function test(locations) {
        
-         temp =   JSON.parse(localStorage.getItem(APP_PREFIX, locations))                           
+         temp =   JSON.parse(localStorage.getItem(APP_PREFIX, locations))   
    i = 0
    if(temp === null){
         testHTML.innerHTML += '   <li class="mdl-list__item mdl-list__item--two-line" onclick="viewLocation(temp, i);"><span class="mdl-list__item-primary-content"><img class="mdl-list__item-icon" id="icon0" src="images/loading.png"> <span>' + "Your locations will appear here!" + '</span> <span id="weather0" class="mdl-list__item-sub-title">Try saving a location first</span> </span></li>';
     document.getElementById('locationList').appendChild(testHTML);
    }
     else{
-  $.ajax({
-  url: "https://api.forecast.io/forecast/cc76775d3f3464a6c4a3f856e0b11b05/" + temp[i].latitude + "," + temp[i].longitude,
-  jsonp: "callback",
-  dataType: "jsonp",
-  success: function(data, temp) {
-      output = data.currently.summary
-      console.log(i)  
-  document.getElementById("temp").value += data.currently.summary + " - " ;
-      
+
 while(i + 1<=temp.length ){
     temp =   JSON.parse(localStorage.getItem(APP_PREFIX, locations))   
     var testHTML = document.createElement("li")
@@ -81,17 +74,20 @@ while(i + 1<=temp.length ){
                   
    
         
-  console.log(document.getElementById("temp").value)
+  //console.log(document.getElementById("0").innerHTML)
     
+         weatherForecastSummary(temp, i)
+      
             i++                    
 
 
 }
-  }      
-});
     }
 
+
 }
+            
+
 </script>
     </body>
 </html>
