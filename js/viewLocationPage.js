@@ -39,17 +39,15 @@ function removeLocation(){
     var locationCacheInstance = new LocationWeatherCache();
     locationCacheInstance.removeLocationAtIndex(selectedLocation);
 }
-function weatherForecastSlider(){
-    $.ajax({
-  url: "https://api.forecast.io/forecast/cc76775d3f3464a6c4a3f856e0b11b05/" + selectedLocation.latitude + "," + selectedLocation.longitude + "," + sliderDate,
-  jsonp: "callback",
-  dataType: "jsonp",
-  success: function(data) {
-    console.log(data.currently.summary); // look in the console to see the JSON
-      document.getElementById("weatherText").value = data.currently.summary ;
-   
-  }
-});
-    
-}
 
+function weatherForecastSlider(){
+  var apiKey = 'cc76775d3f3464a6c4a3f856e0b11b05';
+            var url = 'https://api.forecast.io/forecast/';
+            var lati = selectedLocation.latitude;
+            var longi = selectedLocation.longitude;
+            var data;
+//converts the data using json and grabs the temperature and weather summary.
+            $.getJSON(url + apiKey + "/" + lati + "," + longi  + "," + sliderDate + "?callback=?&units=si", function(data) {
+            document.getElementById("weatherText").value = data.currently.summary ;
+            });
+}
