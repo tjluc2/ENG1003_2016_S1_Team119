@@ -23,33 +23,30 @@ function viewLocation(clicked_id)
 }
 
 
- function weatherForecastSummary(){//adds summary to the main page
-      
-  return $.ajax({
-  url: "https://api.forecast.io/forecast/cc76775d3f3464a6c4a3f856e0b11b05/" + temp[i].latitude + "," + temp[i].longitude + '?units=si',
-  jsonp: "callback",
-  dataType: "jsonp",
-  success: function(data, temp ) {
-      
-   temperature = Math.round(data.currently.temperature)  + "\u00B0" + "C"
-  summary = data.currently.summary + " " + temperature ;
-console.log(temperature)
-updateSummary(temp)
-      return summary
-  }
-      
-});
-  
- }
-t=0
-function updateSummary(){
+function weatherForecastSummary(){ //adds weather summary using forecast io api.
+
+            var apiKey = 'cc76775d3f3464a6c4a3f856e0b11b05';
+            var url = 'https://api.forecast.io/forecast/';
+            var lati = temp[i].latitude;
+            var longi = temp[i].longitude;
+            var data;
+//converts the data using json and grabs the temperature and weather summary.
+            $.getJSON(url + apiKey + "/" + lati + "," + longi + "?callback=?&units=si", function(data) {
+            temperature = Math.round(data.currently.temperature)  + "\u00B0" + "C"
+            summary = data.currently.summary + " " + temperature ;
+            updateSummary(temp) //adds 
+            return summary
+            });
+}
+t=0 //couldnt use i again.
+function updateSummary(){ // modifies the html of each list elements using their ID which is their index in the local storage. Summary no longer is "loading..." but is now the weather summary
 listHTML = document.createElement("li")     
 document.getElementById(t).innerHTML = '<li id =' + t + ' ' + 'class="mdl-list__item mdl-list__item--two-line" onclick="viewLocation(this.id, temp);"><span class="mdl-list__item-primary-content"><img class="mdl-list__item-icon" id="icon0" src="images/loading.png"> <span>' + temp[t].nickname + '</span> <span id="weather0" class="mdl-list__item-sub-title">' + summary + '</span> </span></li>';
       document.getElementById('locationList').appendChild(listHTML);
     t++
 }
 
-function geoFindMe() {
+function geoFindMe() { //using geocoder grabs the current position, and creates the variable currentLocation which is the formatted address from the gecoder.
   function success(position) {
     var latitude  = position.coords.latitude;
     var longitude = position.coords.longitude;
@@ -65,3 +62,5 @@ function geoFindMe() {
   };
   navigator.geolocation.getCurrentPosition(success);
 }
+
+
