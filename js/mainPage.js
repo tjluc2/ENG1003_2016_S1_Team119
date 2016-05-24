@@ -36,7 +36,7 @@ function weatherForecastSummary(){ //adds weather summary using forecast io api.
             icon = data.currently.icon
             summary =  '<img  class="mdl-list__item-icon" src="images/' + icon + '.png"></img>' + data.currently.summary +  "<br>" +  temperature ;
             updateSummary(temp) //adds 
-            console.log(data.daily.data[0].temperatureMax)
+            console.log(data.daily.summary)
             return summary
             });
 }

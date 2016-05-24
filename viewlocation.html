@@ -33,12 +33,12 @@
             <div class="content-grid mdl-grid">
               <div class="mdl-cell">
                 <!--   Main page content here:   -->  
-                <div id="googleMap" style="width:328px;height:345px;"></div>
+                <div id="googleMap" style="width:328px;height:300px;"></div>
                 <body onload="initialize()"></body>
                       <p>
   
-  <input type="text" id="amount" style="border: 0; color: #3F47B0; font-weight: bold;" size="100"/>
-    <input type="text" id="weatherText" style="border: 0; color: #3F47B0; font-weight: bold;" size="100"/>
+  <input type="text" id="dateLabel" style="border: 0; color: #ff9900; font-weight: bold;" size="150"/>
+  <textarea class= textBox id="weatherText" rows = "4" cols="42" style="border: 0; color: #3F47B0; font-weight: bold ;" size="100"></textarea>
 </p>
  
 <div id="slider-range"></div>
@@ -64,6 +64,9 @@
         <script src="js/jquery.ui.touch-punch.min.js"></script>
 <script>
     var date = new Date();
+    sliderDate = date.simpleDateString() + "T12:00:00"
+     weatherForecastSlider(sliderDate)
+    
 var msecSince1970 = date.getTime() - 86400000*30 ;
 date.setTime(msecSince1970);
 var date2 = new Date();
@@ -80,13 +83,13 @@ $(function() {
       values: [ new Date(date2).getTime() / 1000 ],
       slide: function( event, ui ) {
         
-        $( "#amount" ).val( (new Date(ui.values[ 0 ] *1000).toDateString() ) );
+        $( "#dateLabel" ).val( (new Date(ui.values[ 0 ] *1000).toDateString() ) );
 sliderDate = (new Date($( "#slider-range" ).slider( "values", 0 )*1000)).simpleDateString() + "T12:00:00";
        weatherForecastSlider(sliderDate)
       }
     }).draggable();;
    
-    $( "#amount" ).val( (new Date($( "#slider-range" ).slider( "values", 0 )*1000).toDateString()));
+    $( "#dateLabel" ).val( (new Date($( "#slider-range" ).slider( "values", 0 )*1000).toDateString()));
   });
 </script> 
         
