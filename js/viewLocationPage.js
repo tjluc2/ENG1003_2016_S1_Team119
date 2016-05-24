@@ -4,9 +4,9 @@
 // You need not use it for final app.
 var map
 var selectedLocation = JSON.parse(localStorage.getItem(APP_PREFIX + "-selectedLocation"))
+ 
 function initialize() {
     console.log(selectedLocation);
-
                 
   var mapProp = {
     center:new google.maps.LatLng(selectedLocation.latitude,selectedLocation.longitude),
@@ -36,6 +36,7 @@ function initialize() {
 }
 
 function removeLocation(){
+   
     var locationCacheInstance = new LocationWeatherCache();
     locationCacheInstance.removeLocationAtIndex(selectedLocation);
 }
@@ -51,7 +52,7 @@ function weatherForecastSlider(){
                 summary = data.daily.data[0].summary+ "\n";
                 maxTemp = "Max temperature: " + Math.round(data.daily.data[0].temperatureMax)  + "\u00B0" + "C       ";
                 minTemp = "Min temperature: " + Math.round(data.daily.data[0].temperatureMin)  + "\u00B0" + "C \n" ;
-                humidity = "Humidity: " + data.daily.data[0].humidity *100 + "%                       ";
+                humidity = "Humidity: " + Math.round(data.daily.data[0].humidity *100) + "%                       ";
                 windSpeed = "Wind speed: " + Math.round(data.daily.data[0].windSpeed *3.6) + "km/h  "
                 
                       

@@ -33,19 +33,19 @@
             <div class="content-grid mdl-grid">
               <div class="mdl-cell">
                 <!--   Main page content here:   -->  
-                <div id="googleMap" style="width:328px;height:300px;"></div>
+                <div id="googleMap" style="width:328px;height:215px;"></div>
                 <body onload="initialize()"></body>
                       <p>
   
   <input type="text" id="dateLabel" style="border: 0; color: #ff9900; font-weight: bold;" size="150"/>
-  <textarea class= textBox id="weatherText" rows = "4" cols="42" style="border: 0; color: #3F47B0; font-weight: bold ;" size="100"></textarea>
+  <textarea class= textBox id="weatherText" rows = "3" cols="42" style="border: 0; color: #3F47B0;" size="100"></textarea>
 </p>
  
-<div id="slider-range"></div>
+<div id="slider-range"  class= center ></div>
                   
+               
+<button id="removeLocation" class="button2" type="button" onClick="removeLocation(); location.href = 'index.html'">REMOVE BUTTON</button>
                 <article style="padding:50px 20px">
-                <div id="slider"></div>
-<button id="removeLocation" class="button" type="button" onClick="removeLocation(); location.href = 'index.html'">REMOVE BUTTON</button>
                     
                     <div id="out"></div>
                 </article>

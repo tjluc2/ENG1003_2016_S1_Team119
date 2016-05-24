@@ -21,7 +21,7 @@
         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
           <header class="mdl-layout__header">
             <div class="mdl-layout__header-row">
-              <span class="mdl-layout-title" id="headerBarTitle">Locations</span>
+              <span class="mdl-layout-title" id="headerBarTitle">Location</span>
               <div class="mdl-layout-spacer"></div>
               <button onclick="location.href = 'addlocation.html';" class="mdl-button mdl-js-button mdl-button--icon">
                 <i class="material-icons">add</i>
@@ -43,7 +43,7 @@
             <!--   End sample locations list.   -->  
 <input type="text" id="temp" style="border: 0; color: #3F47B0; font-weight: bold;" size="100"/>
      
-                             
+                           
           </main>
         </div>
         <!--   JavaScript files:   -->
@@ -54,6 +54,7 @@
         <script src="js/viewLocationPage.js"></script>
         
         <script>
+          
 function createLocationButtons(locations) {
        
          temp =   JSON.parse(localStorage.getItem(APP_PREFIX, locations))   
@@ -82,7 +83,7 @@ while(i + 1<=temp.length ){
   //creates list element with with index 'i' and summary, which is set to 'loading...'.
          listHTML.innerHTML += '   <li id =' + i + ' ' + 'class="mdl-list__item mdl-list__item--two-line" onclick="viewLocation(this.id, temp);"><span class="mdl-list__item-primary-content"><img class="mdl-list__item-icon" id="icon0" src="images/loading.png"> <span>' + temp[i].nickname + '</span> <span id="weather0" class="mdl-list__item-sub-title">' + summary + '</span> </span></li>';
     document.getElementById('locationList').appendChild(listHTML);
-                  
+                  console.log(temp[i].nickname)
    
         
   //console.log(document.getElementById("0").innerHTML)
@@ -99,6 +100,8 @@ while(i + 1<=temp.length ){
 }
             
 }
+            
+        
 </script>
     </body>
 </html>

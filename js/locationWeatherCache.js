@@ -80,6 +80,7 @@ function LocationWeatherCache()
            //if we do a for loop from the beggining, then we could create a callback structure thing for each time instead of an array, then push 2 callbacks into locations
         var storageLength = locationCacheInstance.length()
         var list = JSON.parse(localStorage.getItem(APP_PREFIX)) || []
+        var index = JSON.parse(localStorage.getItem(APP_PREFIX + "-index"))
        i = 0
        while(i + 1 <= storageLength){
        temp = {
@@ -88,13 +89,16 @@ function LocationWeatherCache()
             longitude: list[i].longitude,
             forecasts: list[i].forecasts
         };
-           i++
-        if (temp.longitude === selectedLocation.longitude && temp.latitude === selectedLocation.latitude ){
+          
+        if (i === index){
             console.log("not adding it")
+            
+            
         }
            else{
         locations.push(temp)          
            }
+            i++
        }
        
         //locations.push(temp2)
@@ -189,7 +193,3 @@ function saveLocations(locations, index)
     
 }
 
-function lukeDate(){
-  var dat = sliderDate.simpleDateString() + "T12:00:00";
-console.log(dat)
-}

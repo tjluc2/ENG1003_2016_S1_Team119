@@ -23,7 +23,28 @@ html, body {
     text-shadow: 1px 1px #666;
     
     }
-
+.button2 {
+    font-weight: 400;
+    letter-spacing: .04em;  
+    font-size: 20px;
+    margin-top: 10px;
+    margin-left: 36px;
+    margin-right: 36px;
+    padding: 5px 10px;
+     margin-top: 35px;
+    border-top: 0px
+    display: inline;
+    background: #3F47B0;
+    border: solid;
+    color: #fff;
+    cursor: pointer;
+    width: 80%;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    text-shadow: 1px 1px #666;
+    
+    }
 <input type="text"class="inputs" placeholder="Location" /> 
  <input type="password" class="inputs"placeholder="Nickname" /> 
              
@@ -52,5 +73,43 @@ inputs:-webkit-input-placeholder {
     background: #fff;
     box-shadow: 0 0 0 3px #3399FF, inset 0 2px 3px rgba( 0, 0, 0, 0.2 ), 0px 5px 5px rgba( 0, 0, 0, 0.15 );
     outline: none;
+}
+.imageContainer {
+    text-align: center;
+}
+.imageContainer img {
+    display: block;
+}
+.imageContainer div {
+    position: relative;
+    display: inline-block;
+    /* if you need ie6/7 support */
+    *display: inline;
+    zoom: 1;
+}
+.imageContainer span {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: #000;
+    background: rgba(0,0,0,.5);
+}
+
+.textBox {
+  font-family: sans-serif; 
+    color: black
+
+}
+textarea::first-line{
+       font-size: 105%;
+    font-weight: bold;
+    
+}
+.center {
+    margin: auto;
+    width: 90%;
+   
+   
 }
 </style> 
