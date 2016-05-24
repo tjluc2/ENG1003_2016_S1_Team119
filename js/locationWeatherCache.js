@@ -1,3 +1,4 @@
+
 var locationCacheInstance = new LocationWeatherCache();
 
 // Returns a date in the format "YYYY-MM-DD".
@@ -43,6 +44,8 @@ function LocationWeatherCache()
     // Returns the number of locations stored in the cache.
     //
     this.length = function() {
+        var storageLength = (JSON.parse(localStorage.getItem(APP_PREFIX)) || []).length
+        return storageLength;
     };
     
     // Returns the location object for a given index.
@@ -75,9 +78,10 @@ function LocationWeatherCache()
     {
        console.log(selectedLocation) //works 2nd time round
            //if we do a for loop from the beggining, then we could create a callback structure thing for each time instead of an array, then push 2 callbacks into locations
+        var storageLength = locationCacheInstance.length()
         var list = JSON.parse(localStorage.getItem(APP_PREFIX)) || []
        i = 0
-       while(i + 1 <= list.length){
+       while(i + 1 <= storageLength){
        temp = {
             nickname: list[i].nickname,
             latitude: list[i].latitude,
@@ -109,8 +113,9 @@ function LocationWeatherCache()
        //if we do a for loop from the beggining, then we could create a callback structure thing for each time instead of an array, then push 2 callbacks into locations
         var list = JSON.parse(localStorage.getItem(APP_PREFIX)) || []
        console.log(list.length) //works 2nd time round
+       var storageLength = locationCacheInstance.length()
        i = 0
-       while(i + 1 <= list.length){
+       while(i + 1 <= storageLength){
        temp = {
             nickname: list[i].nickname,
             latitude: list[i].latitude,
@@ -172,6 +177,7 @@ function LocationWeatherCache()
 //
 function loadLocations()
 {
+    
 }
 
 // Save the singleton locationWeatherCache to Local Storage.
