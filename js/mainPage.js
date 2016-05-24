@@ -32,11 +32,11 @@ function weatherForecastSummary(){ //adds weather summary using forecast io api.
             var data;
 //converts the data using json and grabs the temperature and weather summary.
             $.getJSON(url + apiKey + "/" + lati + "," + longi + "?callback=?&units=si", function(data) {
-            temperature ="Max: " + (data.daily.data.temperatureMax)  + "\u00B0" + "C Min:" + (data.currently.temperature)  + "\u00B0" + "C"
+            temperature ="Max: " + Math.round(data.daily.data[0].temperatureMax)  + "\u00B0" + "C Min: " + Math.round(data.daily.data[0].temperatureMin)  + "\u00B0" + "C"
             icon = data.currently.icon
-            summary =  '<img  class="mdl-list__item-icon" src="images/' + icon + '.png"></img>' +data.currently.summary + " " +  temperature ;
+            summary =  '<img  class="mdl-list__item-icon" src="images/' + icon + '.png"></img>' + data.currently.summary +  "<br>" +  temperature ;
             updateSummary(temp) //adds 
-            console.log(data)
+            console.log(data.daily.data[0].temperatureMax)
             return summary
             });
 }
