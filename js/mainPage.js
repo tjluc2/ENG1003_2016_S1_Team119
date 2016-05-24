@@ -32,16 +32,18 @@ function weatherForecastSummary(){ //adds weather summary using forecast io api.
             var data;
 //converts the data using json and grabs the temperature and weather summary.
             $.getJSON(url + apiKey + "/" + lati + "," + longi + "?callback=?&units=si", function(data) {
-            temperature = Math.round(data.currently.temperature)  + "\u00B0" + "C"
-            summary = data.currently.summary + " " + temperature ;
+            temperature ="Max: " + (data.daily.data.temperatureMax)  + "\u00B0" + "C Min:" + (data.currently.temperature)  + "\u00B0" + "C"
+            icon = data.currently.icon
+            summary =  '<img  class="mdl-list__item-icon" src="images/' + icon + '.png"></img>' +data.currently.summary + " " +  temperature ;
             updateSummary(temp) //adds 
+            console.log(data)
             return summary
             });
 }
 t=0 //couldnt use i again.
 function updateSummary(){ // modifies the html of each list elements using their ID which is their index in the local storage. Summary no longer is "loading..." but is now the weather summary
 listHTML = document.createElement("li")     
-document.getElementById(t).innerHTML = '<li id =' + t + ' ' + 'class="mdl-list__item mdl-list__item--two-line" onclick="viewLocation(this.id, temp);"><span class="mdl-list__item-primary-content"><img class="mdl-list__item-icon" id="icon0" src="images/loading.png"> <span>' + temp[t].nickname + '</span> <span id="weather0" class="mdl-list__item-sub-title">' + summary + '</span> </span></li>';
+document.getElementById(t).innerHTML = '<li id =' + t + ' ' + 'class="mdl-list__item mdl-list__item--two-line" onclick="viewLocation(this.id, temp);"><span class="mdl-list__item-primary-content"><img class="mdl-list__item-icon" id="icon0" src="images/loading.png"> <span>' + temp[t].nickname + '</span> <span id="weather0" class="mdl-list__item-sub-title" >' + summary + '</span></span></li>';
       document.getElementById('locationList').appendChild(listHTML);
     t++
 }
