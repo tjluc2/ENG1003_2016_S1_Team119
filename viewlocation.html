@@ -45,6 +45,7 @@
                   
                
 <button id="removeLocation" class="button2" type="button" onClick="removeLocation(); location.href = 'index.html'">REMOVE BUTTON</button>
+                  
                 <article style="padding:50px 20px">
                     
                     <div id="out"></div>
@@ -81,12 +82,16 @@ $(function() {
       max: new Date(date2).getTime() / 1000,
       step: 86400,
       values: [ new Date(date2).getTime() / 1000 ],
-      slide: function( event, ui ) {
+      
+        slide: function( event, ui ) {
         
         $( "#dateLabel" ).val( (new Date(ui.values[ 0 ] *1000).toDateString() ) );
 sliderDate = (new Date($( "#slider-range" ).slider( "values", 0 )*1000)).simpleDateString() + "T12:00:00";
-       weatherForecastSlider(sliderDate)
-      }
+      },
+    stop: function( event, ui ) {
+           weatherForecastSlider(sliderDate)
+             }
+        
     }).draggable();;
    
     $( "#dateLabel" ).val( (new Date($( "#slider-range" ).slider( "values", 0 )*1000).toDateString()));

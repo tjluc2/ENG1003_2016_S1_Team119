@@ -1,4 +1,5 @@
 
+var forecastObject;
 var locationCacheInstance = new LocationWeatherCache();
 
 // Returns a date in the format "YYYY-MM-DD".
@@ -60,7 +61,7 @@ function LocationWeatherCache()
     //
     this.addLocation = function(lat, lng, nickname)
     {
-        var forecasts = ""
+        var forecasts = {}
         callbacks = {
             nickname: nickname,
             latitude: lat,
@@ -163,7 +164,45 @@ function LocationWeatherCache()
     // weather request.
     //
     this.weatherResponse = function(response) {
-    };
+    //    if(locations[index].forecasts.hasOwnProperty(key)){
+    //        weather = locations[index].forecasts.key
+    //    }
+    //    else{  
+        var data;
+       // key = lati + "," + longi  + "," + sliderDate
+        console.log("Looking online for weather info!")
+        //converts the data using json and grabs the temperature and weather summary.
+       // var jqxhr = $.getJSON("https://api.forecast.io/forecast/cc76775d3f3464a6c4a3f856e0b11b05/-37.8068202,145.03100670000003?callback=?&units=si", function(data) {
+       index = i
+           var jqxhr = $.getJSON("https://api.forecast.io/forecast/cc76775d3f3464a6c4a3f856e0b11b05/" + key + "?callback=?&units=si", function(data) {
+        forecastObject =
+                {
+                summary : data.daily.data[0].summary,
+                icon : data.daily.data[0].icon,
+                maxTemp : "Max: " + Math.round(data.daily.data[0].temperatureMax)  + "\u00B0" + "C",
+                minTemp : "Min: " + Math.round(data.daily.data[0].temperatureMin)  + "\u00B0" + "C" ,
+                humidity : "Humidity: " + Math.round(data.daily.data[0].humidity *100) + "%",
+                windSpeed : "Wind speed: " + Math.round(data.daily.data[0].windSpeed *3.6) + "km/h"
+                
+                }
+              
+                 var list = JSON.parse(localStorage.getItem(APP_PREFIX)) || []
+                
+                 list[index].forecasts[key] = forecastObject
+                 localStorage.setItem(APP_PREFIX, JSON.stringify(list));
+           
+                if(source == "slider"){
+                    
+                 weatherForecastSlider()
+                }
+                if(source =="mainPage"){
+                   
+                    summary =  '<img  class="mdl-list__item-icon" src="images/' + list[index].forecasts[key].icon + '.png"></img>' +    list[index].forecasts[key].maxTemp + "\n" + list[index].forecasts[key].minTemp ;
+                    updateSummary(summary, temp)
+                }
+            });  
+       
+        }
 
     // Private methods:
     
@@ -174,6 +213,7 @@ function LocationWeatherCache()
     //
     function indexForLocation(latitude, longitude)
     {
+        
     }
 }
 

@@ -6,7 +6,7 @@ var map
 var selectedLocation = JSON.parse(localStorage.getItem(APP_PREFIX + "-selectedLocation"))
  
 function initialize() {
-    console.log(selectedLocation);
+    
                 
   var mapProp = {
     center:new google.maps.LatLng(selectedLocation.latitude,selectedLocation.longitude),
@@ -41,22 +41,26 @@ function removeLocation(){
     locationCacheInstance.removeLocationAtIndex(selectedLocation);
 }
 
+
+
 function weatherForecastSlider(){
-            var apiKey = 'cc76775d3f3464a6c4a3f856e0b11b05';
-            var url = 'https://api.forecast.io/forecast/';
-            var lati = selectedLocation.latitude;
-            var longi = selectedLocation.longitude;
-            var data;
-            //converts the data using json and grabs the temperature and weather summary.
-            $.getJSON(url + apiKey + "/" + lati + "," + longi  + "," + sliderDate + "?callback=?&units=si", function(data) {
-                summary = data.daily.data[0].summary+ "\n";
-                maxTemp = "Max temperature: " + Math.round(data.daily.data[0].temperatureMax)  + "\u00B0" + "C       ";
-                minTemp = "Min temperature: " + Math.round(data.daily.data[0].temperatureMin)  + "\u00B0" + "C \n" ;
-                humidity = "Humidity: " + Math.round(data.daily.data[0].humidity *100) + "%                       ";
-                windSpeed = "Wind speed: " + Math.round(data.daily.data[0].windSpeed *3.6) + "km/h  "
-                
-                      
-            
-            document.getElementById("weatherText").value = summary + maxTemp + minTemp + humidity + windSpeed ;
-            });
+    var list = JSON.parse(localStorage.getItem(APP_PREFIX)) || []
+     i = JSON.parse(localStorage.getItem(APP_PREFIX + "-index"))
+      //date = sliderDate
+      source = "slider"
+      lati = selectedLocation.latitude;
+      longi = selectedLocation.longitude;
+       key = lati + "," + longi + "," +  sliderDate
+       
+      if(list[i].forecasts.hasOwnProperty(key)){
+          console.log("found in cache!")
+         summary = list[i].forecasts[key].summary + "\n" +  list[i].forecasts[key].maxTemp + "   " + list[i].forecasts[key].minTemp + "   " + list[i].forecasts[key].humidity + "   " + list[i].forecasts[key].windSpeed
+         document.getElementById("weatherText").value = summary;
+      }
+    else{
+      var locationCacheInstance = new LocationWeatherCache();
+    locationCacheInstance.weatherResponse(lati, longi, key, i, source, sliderDate );
+         
+    }
+  
 }
