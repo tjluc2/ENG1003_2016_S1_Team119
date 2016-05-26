@@ -51,7 +51,6 @@ function weatherForecastSlider(){
       lati = selectedLocation.latitude;
       longi = selectedLocation.longitude;
        key = lati + "," + longi + "," +  sliderDate
-       
       if(list[i].forecasts.hasOwnProperty(key)){
           console.log("found in cache!")
          summary = list[i].forecasts[key].summary + "\n" +  list[i].forecasts[key].maxTemp + "   " + list[i].forecasts[key].minTemp + "   " + list[i].forecasts[key].humidity + "   " + list[i].forecasts[key].windSpeed

@@ -197,7 +197,7 @@ function LocationWeatherCache()
                 }
                 if(source =="mainPage"){
                    
-                    summary =  '<img  class="mdl-list__item-icon" src="images/' + list[index].forecasts[key].icon + '.png"></img>' +    list[index].forecasts[key].maxTemp + "\n" + list[index].forecasts[key].minTemp ;
+                    summary =  '<img  class="mdl-list__item-icon" src="images/' + list[index].forecasts[key].icon + '.png"></img>' +   list[index].forecasts[key].maxTemp +  "<br>"  + list[index].forecasts[key].minTemp ;
                     updateSummary(summary, temp)
                 }
             });  

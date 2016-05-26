@@ -35,7 +35,7 @@ function weatherForecastSummary(){ //adds weather summary using forecast io api.
     if(temp[i].forecasts.hasOwnProperty(key)){
          console.log("found in cache!")
          console.log(temp[i].forecasts[key].icon)
-         summary =  '<img  class="mdl-list__item-icon" src="images/' + temp[i].forecasts[key].icon + '.png"></img>'  +    temp[i].forecasts[key].maxTemp + "\n"  + temp[i].forecasts[key].minTemp ;
+         summary =  '<img  class="mdl-list__item-icon" src="images/' + temp[i].forecasts[key].icon + '.png"></img>'  +    temp[i].forecasts[key].maxTemp + "<br>"  + temp[i].forecasts[key].minTemp ;
         updateSummary(temp)
     }
         else{
@@ -62,7 +62,7 @@ function geoFindMe() { //using geocoder grabs the current position, and creates 
       var forecastURL = 'https://api.forecast.io/forecast/cc76775d3f3464a6c4a3f856e0b11b05/' + latitude + "," + longitude + "?callback=?&units=si"
          
       $.getJSON(forecastURL, function(data) {
-            temperature =" Max: " + Math.round(data.daily.data[0].temperatureMax)  + "\u00B0" + "C Min: \n " + Math.round(data.daily.data[0].temperatureMin)  + "\u00B0" + "C"
+            temperature =" Max: " + Math.round(data.daily.data[0].temperatureMax)  + "\u00B0" + "C" +  "<br>"  + "Min: " + Math.round(data.daily.data[0].temperatureMin)  + "\u00B0" + "C"
             icon = data.currently.icon
             summary =  '<img  class="mdl-list__item-icon" src="images/' + icon + '.png"></img>' +     temperature ;
             
