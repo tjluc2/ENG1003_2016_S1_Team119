@@ -13,9 +13,9 @@ function viewLocation(clicked_id)
     selectedIndex = clicked_id
     //Turns location back into object
 
-  var selectedLocation =  temp[selectedIndex]
+  var selectedLocation =  storageList[selectedIndex]
    localStorage.setItem(APP_PREFIX + "-index", selectedIndex);
-    localStorage.setItem(APP_PREFIX + "-selectedLocation", JSON.stringify(temp[selectedIndex]));
+    localStorage.setItem(APP_PREFIX + "-selectedLocation", JSON.stringify(storageList[selectedIndex]));
 
    
     // And load the view location page.
@@ -28,19 +28,19 @@ function weatherForecastSummary(){ //adds weather summary using forecast io api.
     source = "mainPage"
     date  = new Date().toISOString().slice(0,10) + "T12:00:00";
     console.log(i)
-    lati = temp[i].latitude;
-    longi = temp[i].longitude;
+    lati = storageList[i].latitude;
+    longi = storageList[i].longitude;
     key = lati + "," + longi + "," +  date
     
-    if(temp[i].forecasts.hasOwnProperty(key)){
+    if(storageList[i].forecasts.hasOwnProperty(key)){
          console.log("found in cache!")
-         console.log(temp[i].forecasts[key].icon)
-         summary =  '<img  class="mdl-list__item-icon" src="images/' + temp[i].forecasts[key].icon + '.png"></img>'  +    temp[i].forecasts[key].maxTemp + "<br>"  + temp[i].forecasts[key].minTemp ;
-        updateSummary(temp)
+         console.log(storageList[i].forecasts[key].icon)
+         summary =  '<img  class="mdl-list__item-icon" src="images/' + storageList[i].forecasts[key].icon + '.png"></img>'  +    storageList[i].forecasts[key].maxTemp + "  "  + storageList[i].forecasts[key].minTemp ;
+        updateSummary(storageList)
     }
         else{
       var locationCacheInstance = new LocationWeatherCache();
-   locationCacheInstance.weatherResponse(lati, longi, key, i, source, temp );
+   locationCacheInstance.weatherResponse(lati, longi, key, i, source );
          
     }
 }
@@ -48,7 +48,7 @@ t=0 //couldnt use i again.
 function updateSummary(){ // modifies the html of each list elements using their ID which is their index in the local storage. Summary no longer is "loading..." but is now the weather summary
    
 listHTML = document.createElement("li")     
-document.getElementById(t).innerHTML = '<li id =' + t + ' ' + 'class="mdl-list__item mdl-list__item--two-line" onclick="viewLocation(this.id, temp);"><span class="mdl-list__item-primary-content"><img class="mdl-list__item-icon" id="icon0" src="images/loading.png"> <span>' + temp[t].nickname + '</span> <span id="weather0" class="mdl-list__item-sub-title" >' + summary + '</span></span></li>';
+document.getElementById(t).innerHTML = '<li id =' + t + ' ' + 'class="mdl-list__item mdl-list__item--two-line" onclick="viewLocation(this.id, temp);"><span class="mdl-list__item-primary-content"><img class="mdl-list__item-icon" id="icon0" src="images/loading.png"> <span>' + storageList[t].nickname + '</span> <span id="weather0" class="mdl-list__item-sub-title" >' + summary + '</span></span></li>';
       document.getElementById('locationList').appendChild(listHTML);
     t++
 }
@@ -62,7 +62,7 @@ function geoFindMe() { //using geocoder grabs the current position, and creates 
       var forecastURL = 'https://api.forecast.io/forecast/cc76775d3f3464a6c4a3f856e0b11b05/' + latitude + "," + longitude + "?callback=?&units=si"
          
       $.getJSON(forecastURL, function(data) {
-            temperature =" Max: " + Math.round(data.daily.data[0].temperatureMax)  + "\u00B0" + "C" +  "<br>"  + "Min: " + Math.round(data.daily.data[0].temperatureMin)  + "\u00B0" + "C"
+            temperature =" Max: " + Math.round(data.daily.data[0].temperatureMax)  + "\u00B0" + "C" +  "  "  + "Min: " + Math.round(data.daily.data[0].temperatureMin)  + "\u00B0" + "C"
             icon = data.currently.icon
             summary =  '<img  class="mdl-list__item-icon" src="images/' + icon + '.png"></img>' +     temperature ;
             
@@ -83,7 +83,7 @@ function LocationweatherForecastSummary(forecastURL){ //adds weather summary usi
             var data;
 //converts the data using json and grabs the temperature and weather summary.
             $.getJSON(forecastURL, function(data) {
-            temperature =" Max: " + Math.round(data.daily.data[0].temperatureMax)  + "\u00B0" + "C \n Min: " + Math.round(data.daily.data[0].temperatureMin)  + "\u00B0" + "C"
+            temperature =" Max: " + Math.round(data.daily.data[0].temperatureMax)  + "\u00B0" + "C  Min: " + Math.round(data.daily.data[0].temperatureMin)  + "\u00B0" + "C"
             icon = data.currently.icon
             summary =  '<img  class="mdl-list__item-icon" src="images/' + icon + '.png"></img>' + data.currently.summary  +    temperature ;
             return summary

@@ -32,7 +32,7 @@ Date.prototype.forecastDateString = function() {
 
 // Prefix to use for Local Storage.  You may change this.
 var APP_PREFIX = "weatherApp";
-
+var storageList = JSON.parse(localStorage.getItem(APP_PREFIX)) || []
 function LocationWeatherCache()
 {
     // Private attributes:
@@ -80,15 +80,14 @@ function LocationWeatherCache()
        console.log(selectedLocation) //works 2nd time round
            //if we do a for loop from the beggining, then we could create a callback structure thing for each time instead of an array, then push 2 callbacks into locations
         var storageLength = locationCacheInstance.length()
-        var list = JSON.parse(localStorage.getItem(APP_PREFIX)) || []
         var index = JSON.parse(localStorage.getItem(APP_PREFIX + "-index"))
        i = 0
        while(i + 1 <= storageLength){
        temp = {
-            nickname: list[i].nickname,
-            latitude: list[i].latitude,
-            longitude: list[i].longitude,
-            forecasts: list[i].forecasts
+            nickname: storageList[i].nickname,
+            latitude: storageList[i].latitude,
+            longitude: storageList[i].longitude,
+            forecasts: storageList[i].forecasts
         };
           
         if (i === index){
@@ -116,16 +115,16 @@ function LocationWeatherCache()
     this.toJSON = function(callbacks, index) 
     {
        //if we do a for loop from the beggining, then we could create a callback structure thing for each time instead of an array, then push 2 callbacks into locations
-        var list = JSON.parse(localStorage.getItem(APP_PREFIX)) || []
-       console.log(list.length) //works 2nd time round
+       
+       console.log(storageList.length) //works 2nd time round
        var storageLength = locationCacheInstance.length()
        i = 0
        while(i + 1 <= storageLength){
        temp = {
-            nickname: list[i].nickname,
-            latitude: list[i].latitude,
-            longitude: list[i].longitude,
-            forecasts: list[i].forecasts
+            nickname: storageList[i].nickname,
+            latitude: storageList[i].latitude,
+            longitude: storageList[i].longitude,
+            forecasts: storageList[i].forecasts
         };
            i++
        
@@ -186,10 +185,10 @@ function LocationWeatherCache()
                 
                 }
               
-                 var list = JSON.parse(localStorage.getItem(APP_PREFIX)) || []
                 
-                 list[index].forecasts[key] = forecastObject
-                 localStorage.setItem(APP_PREFIX, JSON.stringify(list));
+                
+                 storageList[index].forecasts[key] = forecastObject
+                 localStorage.setItem(APP_PREFIX, JSON.stringify(storageList));
            
                 if(source == "slider"){
                     
@@ -197,7 +196,7 @@ function LocationWeatherCache()
                 }
                 if(source =="mainPage"){
                    
-                    summary =  '<img  class="mdl-list__item-icon" src="images/' + list[index].forecasts[key].icon + '.png"></img>' +   list[index].forecasts[key].maxTemp +  "<br>"  + list[index].forecasts[key].minTemp ;
+                   summary =  '<img  class="mdl-list__item-icon" src="images/' + storageList[index].forecasts[key].icon + '.png"></img>' +    storageList[index].forecasts[key].maxTemp + "\n" + storageList[index].forecasts[key].minTemp ;
                     updateSummary(summary, temp)
                 }
             });  

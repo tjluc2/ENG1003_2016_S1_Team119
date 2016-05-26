@@ -57,7 +57,7 @@
           
 function createLocationButtons(locations) {
        
-         temp =   JSON.parse(localStorage.getItem(APP_PREFIX, locations))   
+        
    i = 0
    //Sets the desciprtion to 'loading'
    var currentLocation = "Finding your location..."
@@ -69,26 +69,26 @@ function createLocationButtons(locations) {
     document.getElementById('locationList').appendChild(listHTML);
    
 //if temp storage is empty it wont create any new list elements.
-if(temp == null){
+if(storageList == null){
     
 }
 else{
 //runs i agaisnt the length of the temp storage
-while(i + 1<=temp.length ){
-    temp =   JSON.parse(localStorage.getItem(APP_PREFIX, locations))   
+while(i + 1<=storageList.length ){
+    storageList =   JSON.parse(localStorage.getItem(APP_PREFIX, locations))   
     var listHTML = document.createElement("li")
    summary = "loading...";
    
      
   //creates list element with with index 'i' and summary, which is set to 'loading...'.
-         listHTML.innerHTML += '   <li id =' + i + ' ' + 'class="mdl-list__item mdl-list__item--two-line" onclick="viewLocation(this.id, temp);"><span class="mdl-list__item-primary-content"><img class="mdl-list__item-icon" id="icon0" src="images/loading.png"> <span>' + temp[i].nickname + '</span> <span id="weather0" class="mdl-list__item-sub-title">' + summary + '</span> </span></li>';
+         listHTML.innerHTML += '   <li id =' + i + ' ' + 'class="mdl-list__item mdl-list__item--two-line" onclick="viewLocation(this.id, temp);"><span class="mdl-list__item-primary-content"><img class="mdl-list__item-icon" id="icon0" src="images/loading.png"> <span>' + storageList[i].nickname + '</span> <span id="weather0" class="mdl-list__item-sub-title">' + summary +  '</span> </span></li>';
     document.getElementById('locationList').appendChild(listHTML);
-                  console.log(temp[i].nickname)
+                  console.log(storageList[i].nickname)
    
         
   //console.log(document.getElementById("0").innerHTML)
     //this function gets the current weather for each location in temp, and then appends each list element with the new 'summary' which no longer contains 'loading...' but the weather summary.
-         weatherForecastSummary(temp, i)
+         weatherForecastSummary(i)
      
             i++                    
 

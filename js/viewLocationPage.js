@@ -44,21 +44,20 @@ function removeLocation(){
 
 
 function weatherForecastSlider(){
-    var list = JSON.parse(localStorage.getItem(APP_PREFIX)) || []
      i = JSON.parse(localStorage.getItem(APP_PREFIX + "-index"))
       //date = sliderDate
       source = "slider"
       lati = selectedLocation.latitude;
       longi = selectedLocation.longitude;
        key = lati + "," + longi + "," +  sliderDate
-      if(list[i].forecasts.hasOwnProperty(key)){
+      if(storageList[i].forecasts.hasOwnProperty(key)){
           console.log("found in cache!")
-         summary = list[i].forecasts[key].summary + "\n" +  list[i].forecasts[key].maxTemp + "   " + list[i].forecasts[key].minTemp + "   " + list[i].forecasts[key].humidity + "   " + list[i].forecasts[key].windSpeed
+         summary = storageList[i].forecasts[key].summary + "\n" +  storageList[i].forecasts[key].maxTemp + "   " + storageList[i].forecasts[key].minTemp + "   " + storageList[i].forecasts[key].humidity + "   " + storageList[i].forecasts[key].windSpeed
          document.getElementById("weatherText").value = summary;
       }
     else{
       var locationCacheInstance = new LocationWeatherCache();
-    locationCacheInstance.weatherResponse(lati, longi, key, i, source, sliderDate );
+    locationCacheInstance.weatherResponse(lati, longi, key, i, source );
          
     }
   
