@@ -25,24 +25,13 @@ function viewLocation(clicked_id)
 
 function weatherForecastSummary(){ //adds weather summary using forecast io api.
     
-    source = "mainPage"
+       source = "mainPage"
     date  = new Date().toISOString().slice(0,10) + "T12:00:00";
     console.log(i)
     lati = storageList[i].latitude;
     longi = storageList[i].longitude;
     key = lati + "," + longi + "," +  date
-    
-    if(storageList[i].forecasts.hasOwnProperty(key)){
-         console.log("found in cache!")
-         console.log(storageList[i].forecasts[key].icon)
-         summary =  '<img  class="mdl-list__item-icon" src="images/' + storageList[i].forecasts[key].icon + '.png"></img>'  +    storageList[i].forecasts[key].maxTemp + "  "  + storageList[i].forecasts[key].minTemp ;
-        updateSummary(storageList)
-    }
-        else{
-      var locationCacheInstance = new LocationWeatherCache();
-   locationCacheInstance.weatherResponse(lati, longi, key, i, source );
-         
-    }
+    locationCacheInstance.getWeatherAtIndexForDate(lati, longi, key, source );
 }
 t=0 //couldnt use i again.
 function updateSummary(){ // modifies the html of each list elements using their ID which is their index in the local storage. Summary no longer is "loading..." but is now the weather summary

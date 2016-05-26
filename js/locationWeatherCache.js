@@ -154,6 +154,22 @@ function LocationWeatherCache()
     // weather object for that location.
     // 
     this.getWeatherAtIndexForDate = function(index, date, callback) {
+                if(storageList[i].forecasts.hasOwnProperty(key)){
+          console.log("found in cache!")
+            if (source == "slider"){
+         summary = storageList[i].forecasts[key].summary + "\n" +  storageList[i].forecasts[key].maxTemp + "   " + storageList[i].forecasts[key].minTemp + "   " + storageList[i].forecasts[key].humidity + "   " + storageList[i].forecasts[key].windSpeed
+         document.getElementById("weatherText").value = summary;
+            }
+            if(source == "mainPage"){
+                summary =  '<img  class="mdl-list__item-icon" src="images/' + storageList[i].forecasts[key].icon + '.png"></img>'  +    storageList[i].forecasts[key].maxTemp + "<br>"  + storageList[i].forecasts[key].minTemp ;
+                updateSummary(temp)
+            }
+      }
+    else{
+      var locationCacheInstance = new LocationWeatherCache();
+    locationCacheInstance.weatherResponse(lati, longi, key, i, source, date );
+         
+    }
     };
     
     // This is a callback function passed to forecast.io API calls.
