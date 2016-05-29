@@ -49,11 +49,11 @@ function showPosition(position) { //If there has been a change the map will upda
     else{
         //creates an infoWindow on the current position.
 		  var infoWindow = new google.maps.InfoWindow({map: map});
-		  var pos = {
+		  var pos = { //create latlng for current position
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
-            infoWindow.setPosition(pos);
+            infoWindow.setPosition(pos); //set infowindow to current positon.
             infoWindow.setContent('Your Location.'); //Label for the infoWindow.
             var circle = new google.maps.Circle({ //create a circle indicating the accuracy of the current location.
                 center: pos,

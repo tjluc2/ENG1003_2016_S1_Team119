@@ -1,7 +1,8 @@
 var map;
 var formattedAddress;
 var tempResults;
-
+var marker = new google.maps.Marker( {   //creates a marker outside of the geoLocate function to prevent duplicate markers.         
+                });
 function initialize() {
   var mapProp = {
     center:new google.maps.LatLng(-37.911557,145.134011),
@@ -30,11 +31,10 @@ function geoLocate() {
         
                 // Place a Google Marker at the same location as the map center 
                 // When you hover over the marker, it will display the title
-                var marker = new google.maps.Marker( { 
-                    position: results[0].geometry.location,     
-                    map: map,  
-                    title: address
-                });
+                    marker.setTitle(address)
+                    marker.setMap(map)
+                    marker.setPosition(results[0].geometry.location)    
+         
 		       tempResults = results
 		      // Create an InfoWindow for the marker
                 if (nickname.length > 0) {
