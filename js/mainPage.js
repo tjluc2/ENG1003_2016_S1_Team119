@@ -1,6 +1,49 @@
 // Code for the main app page (locations list).
 //This object will store the location data for the current location.
 var currentLocationObject ={};
+/*
+ * This function is called when the page loads.
+ * Function: geoFindMe()
+ * Authors: Luke Waldren, Raymond Fu, Taylah Lucas, Abe Lawson.
+ * Since: 24/5/2016
+ * Modified: 29/05/2016
+ * Param list: 
+ * Return list: 
+ * Description: This function will use geocoder to find current position and pass that to the DarkSky forecast api. Giving a current location and weather.
+ * Pre-condition: must have a valid API key, GPS, longitude, latitude. Must also have a working internet connection.
+ * Post-condition: none.
+ *
+ * Input : current position
+ * Output: current location, weather summary
+ */
+function geoFindMe() { //using geocoder grabs the current position, and creates the variable currentLocation which is the formatted address from the gecoder.
+  function success(position) {
+      var latitude  = position.coords.latitude;
+      var longitude = position.coords.longitude; //current longitude and latitude values
+      var latlng = {lat:latitude, lng: longitude} //create latlng variable
+      var geocoder = new google.maps.Geocoder(); //intitiates the geocoder
+      var forecastURL = 'https://api.forecast.io/forecast/cc76775d3f3464a6c4a3f856e0b11b05/' + latitude + "," + longitude + "?callback=?&units=si" //forecast.io url containing current lat and lng.
+      
+      $.getJSON(forecastURL, function(data) { //Calls the forecast api to obtain weather information.
+            temperature =" Max: " + Math.round(data.daily.data[0].temperatureMax)  + "\u00B0" + "C" +  "  "  + "Min: " + Math.round(data.daily.data[0].temperatureMin)  + "\u00B0" + "C" //Temperatures
+            icon = data.currently.icon //Icon to be displayed
+            summary =  '<img  class="mdl-list__item-icon" src="images/' + icon + '.png"></img>' +     temperature ; //summary is the HTML that will display the information in the li element.
+            geocoder.geocode({'location': latlng}, function(results, status) {
+            currentLocation = results[1].formatted_address; //the formatted address of the lat and lng we gave to the geocoder.
+            currentLocationObject = { //An object that will contain values obtained from the geocoder.
+                nickname: currentLocation,
+                latitude: latitude,
+                longitude: longitude,
+                forecasts: forecasts = {} //no need to store forecast information.
+            }    
+            var listHTML = document.createElement("li") //Grab the list element and assign new HTML to replace the old HTML previously set.
+            document.getElementById("currentLocation").innerHTML = '  <li id= currentLocation class="mdl-list__item mdl-list__item--two-line" onclick="viewCurrentLocation();"><span class="mdl-list__item-primary-content"><img class="mdl-list__item-icon" id="icon0" src="images/loading.png"> <span>' + currentLocation + '</span> <span id="weather0" class="mdl-list__item-sub-title">' + summary +  '</span> </span></li>';
+            document.getElementById('locationList').appendChild(listHTML); //append the list to include this updated HTML.
+            });   
+    });
+  };
+        navigator.geolocation.getCurrentPosition(success); 
+}
 
 function createLocationButtons(locations) {             
    i = 0
@@ -54,34 +97,8 @@ document.getElementById(t).innerHTML = '<li id =' + t + ' ' + 'class="mdl-list__
     t++ //iterate t 
 }
 
-function geoFindMe() { //using geocoder grabs the current position, and creates the variable currentLocation which is the formatted address from the gecoder.
-  function success(position) {
-      var latitude  = position.coords.latitude;
-      var longitude = position.coords.longitude; //current longitude and latitude values
-      var latlng = {lat:latitude, lng: longitude} //create latlng variable
-      var geocoder = new google.maps.Geocoder(); //intitiates the geocoder
-      var forecastURL = 'https://api.forecast.io/forecast/cc76775d3f3464a6c4a3f856e0b11b05/' + latitude + "," + longitude + "?callback=?&units=si" //forecast.io url containing current lat and lng.
-      
-      $.getJSON(forecastURL, function(data) { //Calls the forecast api to obtain weather information.
-            temperature =" Max: " + Math.round(data.daily.data[0].temperatureMax)  + "\u00B0" + "C" +  "  "  + "Min: " + Math.round(data.daily.data[0].temperatureMin)  + "\u00B0" + "C" //Temperatures
-            icon = data.currently.icon //Icon to be displayed
-            summary =  '<img  class="mdl-list__item-icon" src="images/' + icon + '.png"></img>' +     temperature ; //summary is the HTML that will display the information in the li element.
-            geocoder.geocode({'location': latlng}, function(results, status) {
-            currentLocation = results[1].formatted_address; //the formatted address of the lat and lng we gave to the geocoder.
-            currentLocationObject = { //An object that will contain values obtained from the geocoder.
-                nickname: currentLocation,
-                latitude: latitude,
-                longitude: longitude,
-                forecasts: forecasts = {} //no need to store forecast information.
-            }    
-            var listHTML = document.createElement("li") //Grab the list element and assign new HTML to replace the old HTML previously set.
-            document.getElementById("currentLocation").innerHTML = '  <li id= currentLocation class="mdl-list__item mdl-list__item--two-line" onclick="viewCurrentLocation();"><span class="mdl-list__item-primary-content"><img class="mdl-list__item-icon" id="icon0" src="images/loading.png"> <span>' + currentLocation + '</span> <span id="weather0" class="mdl-list__item-sub-title">' + summary +  '</span> </span></li>';
-            document.getElementById('locationList').appendChild(listHTML); //append the list to include this updated HTML.
-            });   
-    });
-  };
-        navigator.geolocation.getCurrentPosition(success); 
-}
+
+
 
 function LocationweatherForecastSummary(forecastURL){ //adds weather summary using forecast io api.
         var data;

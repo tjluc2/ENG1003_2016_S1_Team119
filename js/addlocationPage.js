@@ -14,6 +14,21 @@ function initialize() {
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
+/*
+ * This function is called when the user releases a key.
+ * Function: geoLocate()
+ * Authors: Luke Waldren, Raymond Fu, Taylah Lucas, Abe Lawson.
+ * Since: 19/5/2016
+ * Modified: 29/05/2016
+ * Param list: 
+ * Return list: 
+ * Description: This function uses geocoder to turn an address into a lng and lat and create markers for that location.
+ * Pre-condition: must have a valid API key, address. Must also have a working internet connection.
+ * Post-condition: none.
+ *
+ * Input : address
+ * Output: lat, lng, formatted address.
+ */
 function geoLocate() {
             var geocoder = new google.maps.Geocoder();    // instantiate a geocoder object
     
@@ -66,7 +81,21 @@ function geoLocate() {
 			});
 	
 		} ;
-
+/*
+ * This function is called when the user selects the add location button
+ * Function: addToCache()
+ * Authors: Luke Waldren, Raymond Fu, Taylah Lucas, Abe Lawson.
+ * Since: 14/5/2016
+ * Modified: 29/05/2016
+ * Param list: 
+ * Return list: 
+ * Description: this function passes all the data that will be stored into the addlocation function.
+ * Pre-condition: must have a valid API key, longitude, latitude and date (in the correct format). Must also have a working internet connection.
+ * Post-condition: none.
+ *
+ * Input : latitude, longitude, nickname, formattedAddress
+ * Output: none
+ */
 function addToCache() {
     var lat = tempResults[0].geometry.location.lat();
     var lng = tempResults[0].geometry.location.lng();

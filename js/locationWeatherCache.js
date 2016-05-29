@@ -155,7 +155,7 @@ function LocationWeatherCache()
           console.log("found in cache!") //validation for developer to see whats going on.
             if (source == "slider"){ //if this function was called from the viewLocationPage it will run this code.
             //Sets summary for viewLocationPage. Contains weather information
-                summary = storageList[i].forecasts[key].summary + "\n" +  storageList[i].forecasts[key].maxTemp + "   " + storageList[i].forecasts[key].minTemp + "   " + storageList[i].forecasts[key].humidity + "   " + storageList[i].forecasts[key].windSpeed
+                summary = storageList[i].forecasts[key].summary + "\n" +  storageList[i].forecasts[key].maxTemp + "          " + storageList[i].forecasts[key].minTemp  + "\n" + storageList[i].forecasts[key].humidity + "   " + storageList[i].forecasts[key].windSpeed
                 document.getElementById("weatherText").value = summary; //sets the textArea to display summary text.
             }
             if(source == "mainPage"){ //If function called from the mainPage.
