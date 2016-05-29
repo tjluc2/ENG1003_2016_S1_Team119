@@ -55,51 +55,6 @@
         
         <script>
           
-function createLocationButtons(locations) {
-       
-        
-   i = 0
-   //Sets the desciprtion to 'loading'
-   var currentLocation = "Finding your location..."
-   //this function finds the current position and returns a variable 'currentLocation' which is a string. Is is then put into the first list element, which is below. There is a error in chrome where it wont let you use location services from local files (file://index.html). I dont think its an issue, ive tested using a http python server and it works.
-   geoFindMe(currentLocation);
-    //This creates a new list element and sets the HTML for it. This list element displays the current location
-       var listHTML = document.createElement("li")
-        listHTML.innerHTML += '   <li id= currentLocation class="mdl-list__item mdl-list__item--two-line" onclick="viewLocation(temp, i);"><span class="mdl-list__item-primary-content"><img class="mdl-list__item-icon" id="icon0" src="images/loading.png"> <span>' + currentLocation + '</span> <span id="weather0" class="mdl-list__item-sub-title">This is your current location!</span> </span></li>';
-    document.getElementById('locationList').appendChild(listHTML);
-   
-//if temp storage is empty it wont create any new list elements.
-if(storageList == null){
-    
-}
-else{
-//runs i agaisnt the length of the temp storage
-while(i + 1<=storageList.length ){
-    storageList =   JSON.parse(localStorage.getItem(APP_PREFIX, locations))   
-    var listHTML = document.createElement("li")
-   summary = "loading...";
-   
-     
-  //creates list element with with index 'i' and summary, which is set to 'loading...'.
-         listHTML.innerHTML += '   <li id =' + i + ' ' + 'class="mdl-list__item mdl-list__item--two-line" onclick="viewLocation(this.id, temp);"><span class="mdl-list__item-primary-content"><img class="mdl-list__item-icon" id="icon0" src="images/loading.png"> <span>' + storageList[i].nickname + '</span> <span id="weather0" class="mdl-list__item-sub-title">' + summary +  '</span> </span></li>';
-    document.getElementById('locationList').appendChild(listHTML);
-                  console.log(storageList[i].nickname)
-   
-        
-  //console.log(document.getElementById("0").innerHTML)
-    //this function gets the current weather for each location in temp, and then appends each list element with the new 'summary' which no longer contains 'loading...' but the weather summary.
-         weatherForecastSummary(i)
-     
-            i++                    
-
-
-}
-    
-
-
-}
-            
-}
             
         
 </script>

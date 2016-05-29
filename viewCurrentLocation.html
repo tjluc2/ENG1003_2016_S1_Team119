@@ -25,7 +25,7 @@
                 <i class="material-icons">arrow_back</i>
               </button>
             <div class="mdl-layout__header-row">
-              <span class="mdl-layout-title" id="headerBarTitle">View Location</span>
+              <span class="mdl-layout-title" id="headerBarTitle">Current Location</span>
             </div>
           </header>
 
@@ -34,7 +34,7 @@
               <div class="mdl-cell">
                 <!--   Main page content here:   -->  
                 <div id="googleMap" style="width:328px;height:215px;"></div>
-                <body onload="initialize()"></body>
+                <body onload="init()"></body>
                       <p>
   
   <input type="text" id="dateLabel" style="border: 0; color: #ff9900; font-weight: bold;" size="150"/>
@@ -44,7 +44,7 @@
 <div id="slider-range"  class= center ></div>
                   
                
-<button id="removeLocation" class="button2" type="button" onClick="removeLocation(); location.href = 'index.html'">REMOVE BUTTON</button>
+
                   
                 <article style="padding:50px 20px">
                     
@@ -59,7 +59,7 @@
         <!--   JavaScript files:   -->
         <script src="js/locationWeatherCache.js"></script>
         
-        <script src="js/viewLocationPage.js"></script>
+        <script src="js/viewCurrentLocation.js"></script>
         <script src="js/jquery.js"></script>
         <script src="js/jquery-ui.js"></script>
         <script src="js/jquery.ui.touch-punch.min.js"></script>
@@ -84,7 +84,9 @@
             stop: function( event, ui ) { //stop function to update the weather once the slider has stopped.
                 weatherForecastSlider(sliderDate)
             }
+        
         }).draggable();; //allows the slider to be dragged on touch devices.
+   
         $( "#dateLabel" ).val( (new Date($( "#slider-range" ).slider( "values", 0 )*1000).toDateString())); //dateLabels value set to the value of the slider.
     });
 </script> 
